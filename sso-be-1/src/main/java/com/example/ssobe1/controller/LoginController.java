@@ -17,6 +17,7 @@ public class LoginController {
         if("brad".equals(loginRequestVO.getUserId())) {
             HttpSession session = request.getSession();
             session.setAttribute("user", "brad");
+            session.setAttribute("logged-in-by", "be-1");
 
             return "login success";
         }
@@ -46,6 +47,9 @@ public class LoginController {
             return "it was not logged in before";
         }
         String userName = (String) session.getAttribute("user");
-        return userName + ": logged in";
+        String be = (String) session.getAttribute("logged-in-by");
+        return userName + ": logged in by using " + be;
     }
+
+
 }
