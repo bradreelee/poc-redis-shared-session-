@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSession;
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws java.io.IOException {
         HttpSession session = request.getSession(false);
         if (session == null) {
+            response.setStatus(401);
+            response.getWriter().write("not logged in");
             return false;
         }
 
@@ -23,4 +25,5 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         return false;
     }
+
 }
